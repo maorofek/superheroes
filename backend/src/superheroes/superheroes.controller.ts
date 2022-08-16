@@ -1,10 +1,9 @@
 import { CacheInterceptor, Controller, Get, Param, UseInterceptors, } from '@nestjs/common';
 import { SuperheroesService } from './superheroes.service';
 import fetch from 'node-fetch';
+import * as dotenv from "dotenv";
+dotenv.config({ path: './.env' });
 
-const TOKEN = "10217407242093615";
-
-// @UseInterceptors(CacheInterceptor)
 @Controller('superheroes')
 export class SuperheroController {
 
@@ -12,7 +11,7 @@ export class SuperheroController {
 
     @Get('search/:name')
     async searchSuperHeroByName(@Param('name') name: string) {
-        const result = await fetch(`https://www.superheroapi.com/api/${TOKEN}/search/${name}`);
+        const result = await fetch(`${process.env.API_URL}${process.env.TOKEN}/search/${name}`);
         const data = await result.json();
         this.superheroesService.saveHeroes(data);
         if (data.response === "error") {
@@ -28,7 +27,7 @@ export class SuperheroController {
             return hero;
         }
         console.log("data not found in redis cache, fetching from api");
-        const result = await fetch(`https://www.superheroapi.com/api/${TOKEN}/${id}`);
+        const result = await fetch(`${process.env.API_URL}${process.env.TOKEN}/${id}`);
         const data = await result.json();
         const newHero = await this.superheroesService.saveHero(data);
         return newHero;
