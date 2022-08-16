@@ -1,7 +1,7 @@
 # superheroes
 ### Installation 
 1. have docker installed
-2. pull & run the latest Redis docker image and expose port: 49153
+2. pull & run the latest Redis docker image and expose port: 6379
 3. go to /backend and run npm start in the terminal 
 4. go to /react-app and run npm start in the terminal
 5. go to localhost:3000
