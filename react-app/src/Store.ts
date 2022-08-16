@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit'
 import searchReducer from './SearchSlice'
 import sideBarReducer from './SideBarSlice'
 
-
 type RootState = ReturnType<typeof store.getState>;
 
 const store = configureStore({

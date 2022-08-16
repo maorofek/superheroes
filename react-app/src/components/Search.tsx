@@ -23,7 +23,6 @@ const SearchAndDisplayResults = () => {
     const searchResults = useSelector(selectSearchResults);
     return (
         <div>
-            <h1>Signup</h1>
             <Formik
                 initialValues={{
                     Search: '',
@@ -39,7 +38,7 @@ const SearchAndDisplayResults = () => {
             >
                 <Form>
                     <label htmlFor="Search">Search</label>
-                    <Field id="Search" name="Search" placeholder="Batman" />
+                    <Field id="Search" name="Search" />
                     <button type="submit">Submit</button>
                 </Form>
             </Formik>

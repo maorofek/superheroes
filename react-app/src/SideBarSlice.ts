@@ -5,7 +5,7 @@ interface SideBarState {
 }
 
 const initState: SideBarState = {
-    lastSearches: [],
+    lastSearches: getLastSearchFromLocalStorage(),
 };
 
 const searchBarSlice = createSlice({
@@ -17,9 +17,15 @@ const searchBarSlice = createSlice({
             if (state.lastSearches.length > 5) {
                 state.lastSearches.shift();
             }
+            localStorage.setItem('lastSearches', JSON.stringify(state.lastSearches));
         }
     }
 });
 
 export default searchBarSlice.reducer;
 export const { addLastSearch } = searchBarSlice.actions;
+
+function getLastSearchFromLocalStorage() {
+    const lastSearches = JSON.parse(localStorage.getItem('lastSearches') || '[]');
+    return lastSearches;
+}
