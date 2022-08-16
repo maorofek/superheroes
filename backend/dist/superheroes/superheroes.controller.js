@@ -25,6 +25,9 @@ let SuperheroController = class SuperheroController {
         const result = await (0, node_fetch_1.default)(`https://www.superheroapi.com/api/${TOKEN}/search/${name}`);
         const data = await result.json();
         this.superheroesService.saveHeroes(data);
+        if (data.response === "error") {
+            return data;
+        }
         return data.results;
     }
     async getHeroById(id) {

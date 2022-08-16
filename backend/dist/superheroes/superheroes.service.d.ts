@@ -4,7 +4,7 @@ export declare class SuperheroesService {
     constructor(cacheManager: Cache);
     saveHeroes(data: {
         results: object[];
-    }): Promise<object[]>;
-    saveHero(hero: object): Promise<object>;
-    getHeroById(id: string): Promise<unknown>;
+    }): unknown;
+    saveHero(hero: object): unknown;
+    getHeroById(id: string): unknown;
 }
