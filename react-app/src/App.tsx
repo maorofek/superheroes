@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className='lftPanel'>
+      <div className='lftPanel' style={{ marginRight: "40px" }}>
         <Search />
       </div>
       <SideBar />

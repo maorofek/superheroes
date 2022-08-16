@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css?family=Handlee|Dosis');
+
+* {
+    font-family: 'Handlee', cursive;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 10px;
+    text-align: center;
+}
+
+.image-wrapper {
+    position: relative;
+    display: inline-block;
+    max-width: 700px;
+
+    &:hover {
+        .card {
+            opacity: 1;
+            visibility: visible;
+            margin-top: -50px;
+            height: 500px;
+        }
+    }
+
+    cursor: pointer;
+}
+
+.main-image {
+    max-width: 100%;
+    border-radius: 10px;
+    height: 300px;
+}
+
+.main-title {
+    font-size: 30px;
+    line-height: 1;
+    color: #05baa5;
+}
+
+.card {
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    transition: ease 0.3s all;
+    flex-direction: row;
+    border-radius: 5px;
+    box-shadow: 1px 1px 7px 3px rgba(0, 0, 0, 0.4);
+    background: rgb(188, 186, 186);
+    font-size: medium;
+    color: #0f0c0c;
+    z-index: 3;
+    position: relative;
+    cursor: pointer;
+    padding: 5px;
+    width: 300px;
+    height: 0px;
+    margin-top: -350px;
+}
+
+.card-image {
+    width: 120px;
+    height: 120px;
+}
+
+.card-title {
+    padding-top: 10px;
+    font-size: 22px;
+    line-height: 1.2;
+}
+
+.card-button {
+    color: #05baa5;
+    text-transform: uppercase;
+    font-family: 'Dosis';
+    border: 1px solid #05baa5;
+    text-decoration: none;
+    padding: 8px 10px;
+    display: inline-block;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+}

@@ -15,6 +15,9 @@ export class SuperheroController {
         const result = await fetch(`https://www.superheroapi.com/api/${TOKEN}/search/${name}`);
         const data = await result.json();
         this.superheroesService.saveHeroes(data);
+        if (data.response === "error") {
+            return data;
+        }
         return data.results;
     }
 

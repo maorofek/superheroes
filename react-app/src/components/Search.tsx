@@ -6,7 +6,7 @@ import { Table } from 'react-bootstrap';
 import { setSearchResults } from '../SearchSlice';
 import { selectSearchResults } from '../Store';
 import { addLastSearch } from '../SideBarSlice';
-
+import HoverableImage from './HoverableImage';
 
 interface Values {
     Search: string;
@@ -15,8 +15,23 @@ interface Values {
 async function doFetch(search: string) {
     const res = await fetch(`http://localhost:5000/superheroes/search/${search}`);
     const data = await res.json();
+    if (data.response === 'error') {
+        return [];
+    }
     return data;
 }
+
+function validateSearch(value: string) {
+    let error;
+    value = value.trim();
+    if (!value) {
+        error = 'Required';
+    } else if (!/^\w+$/i.test(value)) {
+        error = 'Invalid input';
+    }
+    return error;
+}
+
 
 const SearchAndDisplayResults = () => {
     const dispatch = useDispatch();
@@ -32,39 +47,42 @@ const SearchAndDisplayResults = () => {
                     { setSubmitting }: FormikHelpers<Values>
                 ) => {
                     const returnedSearchResults = await doFetch(values.Search);
+                    console.log("shtok", returnedSearchResults);
                     dispatch(setSearchResults(returnedSearchResults));
                     dispatch(addLastSearch(values.Search));
                 }}
             >
                 <Form>
-                    <label htmlFor="Search">Search</label>
-                    <Field id="Search" name="Search" />
-                    <button type="submit">Submit</button>
+                    <span className="label label-primary">Search</span>
+                    <Field id="Search" name="Search" validate={validateSearch} />
+                    <button type="submit" className="btn btn-outline-dark">Submit</button>
                 </Form>
             </Formik>
-            <div>
-                <Table striped bordered hover>
-                    <thead>
+            <div style={{ marginTop: "40px" }}>
+                {searchResults.length === 0 ? "no results" : <table className="table">
+                    <thead className="thead-dark">
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>FullName</th>
-                            <th>Avatar</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">FullName</th>
+                            <th scope="col">Avatar</th>
                         </tr>
                     </thead>
                     <tbody>
                         {searchResults.map((result, i) => (
-                            <tr key={i}>
-                                <td>{result["id"]}</td>
+                            <tr style={{ height: "320px", maxHeight: "320px" }} key={i}>
+                                <th scope="row">{result["id"]}</th>
                                 <td>{result["name"]}</td>
                                 <td>{result["biography"]["full-name"]}</td>
-                                <td><img src={result["image"]["url"]}></img></td>
+                                <td><HoverableImage imageUrl={result["image"]["url"]} heroId={result["id"]} /></td>
+                                {/* <td>HoverableImage(result["image"]["url"], result["id"])</td> */}
+                                {/* <td><img style={{ width: "220px", height: "auto" }} src={result["image"]["url"]} /></td> */}
                             </tr>
                         ))}
                     </tbody>
-                </Table>
+                </table>}
             </div>
-        </div>
+        </div >
     );
 };
 export default SearchAndDisplayResults;

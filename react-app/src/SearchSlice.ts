@@ -9,6 +9,7 @@ const searchBarSlice = createSlice({
     initialState: initState,
     reducers: {
         setSearchResults: (state, action) => {
+            console.log(action);
             state.searchResults = action.payload;
         }
     }

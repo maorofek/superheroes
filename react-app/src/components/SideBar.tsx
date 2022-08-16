@@ -7,11 +7,23 @@ import { selectLastSearches } from '../Store';
 function SideBar() {
     const lastSearches: string[] = useSelector(selectLastSearches);
     return (
-        <MDBCard>
-            {lastSearches.map((search: string, i: number) => (
-                <MDBCardBody key={i}>{search}</MDBCardBody>
+        <ul className="list-group">
+            <a href="#" className="list-group-item list-group-item-black black">
+                Last Searches
+            </a>
+            {lastSearches.map((search, i) => (
+                <a href="#" className="list-group-item list-group-item-action list-group-item-light" key={i}>
+                    {search}
+                </a>
             ))}
-        </MDBCard>
+        </ul>
+
+
+        // <MDBCard>
+        //     {lastSearches.map((search: string, i: number) => (
+        //         <MDBCardBody key={i}>{search}</MDBCardBody>
+        //     ))}
+        // </MDBCard>
     );
 }
 export default SideBar;
